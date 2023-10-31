@@ -30,7 +30,7 @@ public class PacientesView  extends VerticalLayout {
         configureGrid(); 
         configureForm();
 
-        add(getToolbar(), getContent(),grid ); 
+        add(getToolbar(), getContent()); 
     }
 
     private void configureForm() {
@@ -62,7 +62,7 @@ public class PacientesView  extends VerticalLayout {
     
     
     private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(form,grid );
+        HorizontalLayout content = new HorizontalLayout(grid,form );
          
         content.setFlexGrow(1, form);
         content.setFlexGrow(2, grid);
