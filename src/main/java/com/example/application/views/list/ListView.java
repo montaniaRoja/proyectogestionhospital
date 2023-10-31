@@ -7,27 +7,36 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility.Margin;
+import com.example.application.views.*;
 
-@PageTitle("list")
-@Route(value = "")
+@PageTitle("Hospital || CRM")
+@Route(value="", layout = MainLayout.class)
 public class ListView extends VerticalLayout {
-
+	
+	
+	
     public ListView() {
         setSpacing(false);
 
-        Image img = new Image("images/empty-plant.png", "placeholder plant");
+        Image img = new Image("images/hospital.png", "logo hospital");
         img.setWidth("200px");
         add(img);
 
-        H2 header = new H2("This place intentionally left empty");
+        H2 header = new H2("C R M");
         header.addClassNames(Margin.Top.XLARGE, Margin.Bottom.MEDIUM);
         add(header);
-        add(new Paragraph("It’s a place where you can grow your own UI 🤗"));
+        add(new Paragraph("Sistema de Gestion de Hospital"));
 
         setSizeFull();
         setJustifyContentMode(JustifyContentMode.CENTER);
         setDefaultHorizontalComponentAlignment(Alignment.CENTER);
         getStyle().set("text-align", "center");
+        
+        
     }
+
+	
+
+	
 
 }

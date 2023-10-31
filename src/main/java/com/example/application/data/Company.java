@@ -14,7 +14,7 @@ public class Company extends AbstractEntity {
 
     @OneToMany(mappedBy = "company")
     @Nullable
-    private List<Contact> employees = new LinkedList<>();
+    private List<SamplePerson> employees = new LinkedList<>();
 
     public String getName() {
         return name;
@@ -24,11 +24,11 @@ public class Company extends AbstractEntity {
         this.name = name;
     }
 
-    public List<Contact> getEmployees() {
+    public List<SamplePerson> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<Contact> employees) {
+    public void setEmployees(List<SamplePerson> employees) {
         this.employees = employees;
     }
 }
