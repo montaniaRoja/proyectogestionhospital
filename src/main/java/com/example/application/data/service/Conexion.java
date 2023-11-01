@@ -12,7 +12,7 @@ public class Conexion {
 
 
 	
-	private final static String ruta = "jdbc:postgresql://127.0.0.1:5432/hospitaldb";
+	private final static String ruta = "jdbc:postgresql://34.71.178.20:5432/hospitaldb";
 	private final static String usuario = "adolfo";
 	private final static String contrasenia = "ofloda01";
 	

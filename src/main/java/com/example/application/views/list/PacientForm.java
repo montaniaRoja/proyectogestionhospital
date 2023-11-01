@@ -71,9 +71,7 @@ private Object guardarPaciente() {
 	paciente.setDireccion(direccion.getValue());
 	paciente.setTelefono(telefono.getValue());
 	paciente.setResponsable(responsable.getValue());
-	
-	
-	
+
 	 try {
          Connection resultado = Conexion.conectarse();
          
@@ -88,9 +86,7 @@ private Object guardarPaciente() {
          String direccion=paciente.getDireccion();
          String telefono=paciente.getTelefono();
          String responsable=paciente.getResponsable();
-         
-         
-         
+
          stmt.setString(1, dni);
          stmt.setString(2, nombre);
          stmt.setString(3, apellido);
@@ -107,12 +103,9 @@ private Object guardarPaciente() {
          
      } catch (SQLException e) {
          e.printStackTrace();
-         
-         
-     }
-	
 
-	// TODO Auto-generated method stub
+     }
+		// TODO Auto-generated method stub
 	return null;
 }
   
