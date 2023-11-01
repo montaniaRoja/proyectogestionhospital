@@ -11,6 +11,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import java.util.Collections;
+import java.util.List;
 
 import com.example.application.data.*;
 import com.example.application.views.*;
@@ -20,7 +21,8 @@ import com.example.application.views.*;
 @PageTitle("Pacientes | Hospital CRM")
 public class PacientesView  extends VerticalLayout {
 	
-	Grid<Paciente> grid = new Grid<>(Paciente.class); 
+	Grid<Paciente> grid = new Grid<>(Paciente.class);
+	//grid.setItems(pacientes);
     TextField filterText = new TextField();
     PacientForm form;
 
@@ -31,6 +33,9 @@ public class PacientesView  extends VerticalLayout {
         configureForm();
 
         add(getToolbar(), getContent()); 
+        
+        List<Paciente> pacientes = new PacienteRepositorio().consultaPaciente();
+        grid.setItems(pacientes);
     }
 
     private void configureForm() {

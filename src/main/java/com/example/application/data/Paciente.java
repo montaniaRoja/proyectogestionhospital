@@ -84,8 +84,8 @@ public class Paciente {
 
 
 
-	public void setGenero(String genero) {
-		this.genero = genero;
+	public void setGenero(String string) {
+		this.genero = string;
 	}
 
 
