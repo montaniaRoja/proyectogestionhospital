@@ -1,4 +1,4 @@
-package com.example.application.views.list;
+package com.example.application.views;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -14,19 +14,18 @@ import java.util.Collections;
 import java.util.List;
 
 import com.example.application.data.*;
-import com.example.application.views.*;
 
 
 @Route(value = "pacientes", layout = MainLayout.class)
 @PageTitle("Pacientes | Hospital CRM")
-public class PacientesView  extends VerticalLayout {
+public class PacientesViewModel  extends VerticalLayout {
 	
 	Grid<Paciente> grid = new Grid<>(Paciente.class);
 	//grid.setItems(pacientes);
     TextField filterText = new TextField();
     PacientForm form;
 
-    public PacientesView() {
+    public PacientesViewModel() {
         addClassName("list-view"); 
         setSizeFull();
         configureGrid(); 

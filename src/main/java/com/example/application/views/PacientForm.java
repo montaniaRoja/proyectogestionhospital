@@ -1,10 +1,10 @@
-package com.example.application.views.list;
+package com.example.application.views;
 
 
 import java.time.LocalDate;
 
 import com.example.application.data.Paciente;
-import com.example.application.data.service.CrudPacientes;
+import com.example.application.data.services.CrudPacientes;
 import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
@@ -24,8 +24,11 @@ TextField dNi = new TextField("Numero de Identidad");
   //Genero femenino=new Genero("Femenino");
   
   
-  String generos[]= {"Masculino","Femenino"};
+  String generos[]= {"Masculino","Femenino","Prefiero no decirlo"};
   ComboBox<String> genero = new ComboBox<>("Género");
+  
+  
+  
   
   TextField direccion = new TextField("Direccion");
   TextField telefono = new TextField("Telefono"); 
@@ -38,7 +41,7 @@ TextField dNi = new TextField("Numero de Identidad");
 
   public PacientForm() {
     addClassName("pacient-form"); 
-    
+    genero.setItems(generos);
     add(dNi,firstName,lastName,datePicker,genero,direccion,telefono,responsable,createButtonsLayout());
     
     

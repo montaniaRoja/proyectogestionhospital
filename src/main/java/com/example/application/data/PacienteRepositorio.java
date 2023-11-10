@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.application.data.service.Conexion;
+import com.example.application.data.services.Conexion;
 
 public class PacienteRepositorio {
 	

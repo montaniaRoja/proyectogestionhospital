@@ -1,7 +1,5 @@
 package com.example.application.views;
 
-import com.example.application.views.list.ListView;
-import com.example.application.views.list.PacientesView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
@@ -39,8 +37,8 @@ public class MainLayout extends AppLayout {
 
     private void createDrawer() {
         addToDrawer(new VerticalLayout( 
-                new RouterLink("Navegacion", ListView.class),
-                new RouterLink("Pacientes", PacientesView.class)
+                new RouterLink("Inicio", ListViewModel.class),
+                new RouterLink("Pacientes", PacientesViewModel.class)
         ));
     }
 }
