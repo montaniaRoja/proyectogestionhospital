@@ -10,7 +10,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.List;
 
 import com.example.application.data.*;
@@ -18,48 +18,89 @@ import com.example.application.data.*;
 
 @Route(value = "pacientes", layout = MainLayout.class)
 @PageTitle("Pacientes | Hospital CRM")
-public class PacientesViewModel  extends VerticalLayout {
+public class PacientesView  extends VerticalLayout {
 	
+	private static final long serialVersionUID = 1L;
 	Grid<Paciente> grid = new Grid<>(Paciente.class);
-	//grid.setItems(pacientes);
-    TextField filterText = new TextField();
+	TextField filterText = new TextField();
     PacientForm form;
 
-    public PacientesViewModel() {
+    public PacientesView() {
         addClassName("list-view"); 
         setSizeFull();
         configureGrid(); 
         configureForm();
 
         add(getToolbar(), getContent()); 
+            
+        updateList();
         
-        List<Paciente> pacientes = new PacienteRepositorio().consultaPaciente();
-        grid.setItems(pacientes);
+        closeEditor();
     }
 
-    private void configureForm() {
-    	form = new PacientForm(); 
-        form.setWidth("25em");
-		// TODO Auto-generated method stub
+    private void closeEditor() {
+    	form.setPaciente(null);
+        form.setVisible(false);
+        removeClassName("editing");
+		
+	}
+    
+    private void addPaciente() { 
+        grid.asSingleSelect().clear();
+        form.setVisible(true);
+        editPaciente(new Paciente());
+    }
+
+	private void updateList() {
+    	List<Paciente> pacientes = new PacienteRepositorio().consultaPaciente();
+    	grid.setItems(pacientes);
 		
 	}
 
+	private void configureForm() {
+    	form = new PacientForm(); 
+        form.setWidth("25em");
+        
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	private void configureGrid() {
-        grid.addClassNames("contact-grid"); 
+        grid.addClassNames("paciente-grid"); 
         grid.setSizeFull();
         grid.setColumns("dni","nombre", "apellido", "fechaNac","genero","direccion","telefono","responsable"); 
         
         grid.getColumns().forEach(col -> col.setAutoWidth(true)); 
+        
+        grid.asSingleSelect().addValueChangeListener(event ->
+        editPaciente(event.getValue()));
+        
+        
     }
 
-    private HorizontalLayout getToolbar() {
+	public void editPaciente(Paciente paciente) { 
+        if (paciente == null) {
+            closeEditor();
+        } else {
+            form.setPaciente(paciente);
+            
+            form.firstName.setValue(paciente.getNombre());
+            form.lastName.setValue(paciente.getApellido());
+            form.datePicker.setValue(LocalDate.parse(paciente.getFechaNac()));
+            form.setVisible(true);
+            addClassName("editing");
+        }
+    }
+
+	private HorizontalLayout getToolbar() {
         filterText.setPlaceholder("Filtrar por nombre...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY); 
 
-        Button addContactButton = new Button("Agregar Paciente");
-
-        var toolbar = new HorizontalLayout(filterText, addContactButton); 
+        Button addPacienteButton = new Button("Agregar Paciente");
+        addPacienteButton.addClickListener(click -> addPaciente());
+        var toolbar = new HorizontalLayout(filterText, addPacienteButton); 
         toolbar.addClassName("toolbar"); 
         return toolbar;
     }

@@ -38,7 +38,8 @@ public class MainLayout extends AppLayout {
     private void createDrawer() {
         addToDrawer(new VerticalLayout( 
                 new RouterLink("Inicio", ListViewModel.class),
-                new RouterLink("Pacientes", PacientesViewModel.class)
+                new RouterLink("Pacientes", PacientesView.class)
+                //new RouterLink("Historial", HistorialView.class)
         ));
     }
 }

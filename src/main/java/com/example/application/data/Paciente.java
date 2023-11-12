@@ -2,6 +2,8 @@ package com.example.application.data;
 
 public class Paciente {
 	
+	
+	
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -131,5 +133,6 @@ public class Paciente {
 	}
 	
 	
+
 
 }

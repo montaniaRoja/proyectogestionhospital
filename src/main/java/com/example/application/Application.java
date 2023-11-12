@@ -17,9 +17,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Theme(value = "flowcrmtutorial")
 public class Application implements AppShellConfigurator {
 
-    public static void main(String[] args) {
+    private static final long serialVersionUID = 1L;
+
+	public static void main(String[] args) {
     	
-    	//Conexion conexion=new Conexion();
+    	
     	System.out.println("conexion status "+Conexion.probarConexion());
         SpringApplication.run(Application.class, args);
     }
