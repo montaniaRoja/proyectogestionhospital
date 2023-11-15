@@ -2,6 +2,7 @@ package com.example.aplicattion.controller;
 
 import java.io.IOException;
 
+import com.example.application.data.Paciente;
 import com.example.application.data.PacientesResponse;
 import com.example.application.model.DatabaseRepositoryImpl;
 import com.example.application.views.PacientesView;
@@ -34,6 +35,24 @@ public class PacientesInteractorImpl implements PacientesInteractor{
 			
 		}
 		
+		
+	}
+
+	@Override
+	public void crearPacientes(Paciente nuevo) {
+		try {
+			this.modelo.crearPacientes(nuevo);
+			boolean respuesta=this.modelo.crearPacientes(nuevo);
+			if(respuesta) {
+				this.vista.mostrarMensaje("Exito");
+			}
+			else {
+				this.vista.mostrarMensaje("Fallo");
+			}
+			
+		}catch(IOException e) {
+			
+		}
 		
 	}
 	

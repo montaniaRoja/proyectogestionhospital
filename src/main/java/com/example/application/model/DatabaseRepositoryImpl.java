@@ -2,8 +2,9 @@ package com.example.application.model;
 
 import java.io.IOException;
 
+import com.example.application.data.Paciente;
 import com.example.application.data.PacientesResponse;
-
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -35,6 +36,12 @@ public class DatabaseRepositoryImpl {
 		}else {
 			return null;
 		}
+	}
+	
+	public boolean crearPacientes(Paciente nuevo) throws IOException {
+		Call<ResponseBody> call=client.getDatabase().crearPacientes(nuevo);
+		Response<ResponseBody> response=call.execute();
+		return response.isSuccessful();
 	}
 	
 }

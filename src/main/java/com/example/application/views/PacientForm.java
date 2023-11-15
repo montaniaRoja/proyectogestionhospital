@@ -1,6 +1,8 @@
 package com.example.application.views;
 
 
+import com.example.aplicattion.controller.PacientesInteractor;
+import com.example.aplicattion.controller.PacientesInteractorImpl;
 import com.example.application.data.Paciente;
 import com.example.application.data.services.CrudPacientes;
 import com.vaadin.flow.component.Key;
@@ -10,6 +12,7 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -25,6 +28,7 @@ public class PacientForm extends FormLayout {
   DatePicker datePicker = new DatePicker("Fecha de Nacimiento");
   
   
+  
   String generos[]= {"Masculino","Femenino","Prefiero no decirlo"};
   ComboBox<String> genero = new ComboBox<>("Género");
   
@@ -38,8 +42,15 @@ public class PacientForm extends FormLayout {
   Button appmnt=new Button("Citas");
   
   BeanValidationBinder<Paciente> binder = new BeanValidationBinder<>(Paciente.class);
+
+ 
+
+  
+  
   
   public PacientForm() {
+	  
+	
     addClassName("pacient-form");
     binder.bindInstanceFields(this); 
     genero.setItems(generos);
@@ -54,8 +65,38 @@ public class PacientForm extends FormLayout {
     close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
     appmnt.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
     
-    save.addClickListener(e->crearPaciente());
+    save.addClickListener(e -> {
+        try {
+            
+           
+
+            Paciente paciente=new Paciente();
+    		
+    		paciente.setDni(this.dNi.getValue());
+    		paciente.setNombre(this.firstName.getValue());
+    		paciente.setApellido(this.lastName.getValue());
+    		paciente.setFechaNac(this.datePicker.getValue().toString());
+    		paciente.setGenero(this.genero.getValue());
+    		paciente.setDireccion(this.direccion.getValue());
+    		paciente.setTelefono(this.telefono.getValue());
+    		paciente.setResponsable(this.responsable.getValue());
+
+            
+            PacientesView.nuevoPaciente(paciente);
+            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+        }
+    });
+
+    	
+    		
+    	    
     
+    
+    
+    close.addClickListener(e->limpiarFormulario());
     appmnt.addClickListener(e -> { 
     	
     	agregarHistorial();
@@ -63,12 +104,7 @@ public class PacientForm extends FormLayout {
     
     });
          
-    	// Obtener el valor del campo dni del formulario
-        
-        
     
-
-
     
     save.addClickShortcut(Key.ENTER); 
     close.addClickShortcut(Key.ESCAPE);
@@ -77,29 +113,29 @@ public class PacientForm extends FormLayout {
   }
   
   
-  private void agregarHistorial() {
+  private Object limpiarFormulario() {
+	  
+	
+	 
+	 this.dNi.clear();
+	 this.dNi.clear();
+		this.firstName.clear();
+		this.lastName.clear();
+		this.direccion.clear();
+		this.telefono.clear();
+		this.responsable.clear();
+		this.setVisible(false);
+	
+	return null;
+}
+
+private void agregarHistorial() {
 	  String dni=dNi.getValue();
 	  UI.getCurrent().navigate("historial/"+dni);
 	}
 
 
-private Object crearPaciente() {
-	
-	Paciente paciente=new Paciente();
-	paciente.setDni(dNi.getValue());
-	paciente.setNombre(firstName.getValue());
-	paciente.setApellido(lastName.getValue());
-//	LocalDate fechaSeleccionada = datePicker.getValue();
-	paciente.setFechaNac(datePicker.getValue().toString());
-	paciente.setGenero(genero.getValue());
-	paciente.setDireccion(direccion.getValue());
-	paciente.setTelefono(telefono.getValue());
-	paciente.setResponsable(responsable.getValue());
-	
-	CrudPacientes.guardarPaciente(paciente);
-	// TODO Auto-generated method stub
-	return null;
-}
+
 
 public void setPaciente(Paciente paciente) {
 	binder.setBean(paciente);

@@ -4,6 +4,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -29,7 +30,7 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 	Grid<Paciente> grid = new Grid<>(Paciente.class);
 	TextField filterText = new TextField();
     PacientForm form;
-    private PacientesInteractor controlador;
+    private static PacientesInteractor controlador;
     private List<Paciente> elementos;
     
     
@@ -44,6 +45,7 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
             
     
         controlador.consultarPacientes(); //ESTE ES PARA CONECTARSE A ORACLE
+        
         closeEditor();
     }
 
@@ -55,7 +57,7 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 	}
     
     private void addPaciente() { 
-        grid.asSingleSelect().clear();
+        //grid.asSingleSelect().clear();
         form.firstName.clear();
         form.lastName.clear();
         form.datePicker.clear();
@@ -92,14 +94,20 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
         if (paciente == null) {
             closeEditor();
         } else {
-            form.setPaciente(paciente);
-            
+           //form.setPaciente(paciente);//aqui llenamos el formulario con los datos del paciente pero como no me funciono lo hice con todos los campos
+            form.dNi.setValue(paciente.getDni());
             form.firstName.setValue(paciente.getNombre());
             form.lastName.setValue(paciente.getApellido());
-            System.out.println(paciente.getFecha());
-           //form.datePicker.setName((paciente.getFecha()));
-           form.datePicker.setValue(LocalDate.parse(paciente.getFecha()));
-            form.setVisible(true);
+            
+          
+           form.datePicker.setValue(LocalDate.parse(paciente.getFecha()));// estos campos se agregaron manualmente
+           form.genero.setValue(paciente.getGenero());
+           form.direccion.setValue(paciente.getDireccion());
+           form.telefono.setValue(paciente.getTelefono());
+           form.responsable.setValue(paciente.getResponsable());
+           
+           
+           form.setVisible(true);
             addClassName("editing");
         }
     }
@@ -150,7 +158,28 @@ public class PacientesView  extends Div implements PacientesViewModel, BeforeEnt
 		this.elementos = elementos;
 	}
 
-	
+	@Override
+	public void mostrarMensaje(String string) {
+		Notification.show(string);
+		// TODO Auto-generated method stub
+		
+	}
+
+	public static void nuevoPaciente(Paciente paciente) {
+		try {
+    			 		
+	    	controlador.crearPacientes(paciente);
+	    		
+	    	} catch (Exception ex) {
+	            
+	            ex.printStackTrace(); 
+	            
+	            Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+	        }
+		
+		
+		
+	}
 
 	
 }
