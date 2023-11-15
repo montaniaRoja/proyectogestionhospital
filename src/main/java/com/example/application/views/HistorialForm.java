@@ -65,6 +65,11 @@ private Object crearHistorial() {
 	return null;
 }
 
+public void setHistorial(Object object) {
+	// TODO Auto-generated method stub
+	
+}
+
 
     
   
