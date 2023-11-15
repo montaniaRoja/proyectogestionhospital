@@ -22,7 +22,7 @@ public class CrudPacientes {
 	         String dni=paciente.getDni();
 	         String nombre=paciente.getNombre();
 	         String apellido=paciente.getApellido();
-	         String fecha=paciente.getFechaNac();
+	         String fecha=paciente.getFecha();
 	         String genero=paciente.getGenero();
 	         String direccion=paciente.getDireccion();
 	         String telefono=paciente.getTelefono();

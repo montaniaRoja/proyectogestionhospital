@@ -1,8 +1,6 @@
 package com.example.application.views;
 
 
-import java.time.LocalDate;
-
 import com.example.application.data.Paciente;
 import com.example.application.data.services.CrudPacientes;
 import com.vaadin.flow.component.Key;
@@ -25,8 +23,7 @@ public class PacientForm extends FormLayout {
   TextField firstName = new TextField("Nombre"); 
   TextField lastName = new TextField("Apellidos");
   DatePicker datePicker = new DatePicker("Fecha de Nacimiento");
-  //Genero masculino=new Genero("Masculino");
-  //Genero femenino=new Genero("Femenino");
+  
   
   String generos[]= {"Masculino","Femenino","Prefiero no decirlo"};
   ComboBox<String> genero = new ComboBox<>("Género");
@@ -92,8 +89,8 @@ private Object crearPaciente() {
 	paciente.setDni(dNi.getValue());
 	paciente.setNombre(firstName.getValue());
 	paciente.setApellido(lastName.getValue());
-	LocalDate fechaSeleccionada = datePicker.getValue();
-	paciente.setFechaNac(fechaSeleccionada.toString());
+//	LocalDate fechaSeleccionada = datePicker.getValue();
+	paciente.setFechaNac(datePicker.getValue().toString());
 	paciente.setGenero(genero.getValue());
 	paciente.setDireccion(direccion.getValue());
 	paciente.setTelefono(telefono.getValue());

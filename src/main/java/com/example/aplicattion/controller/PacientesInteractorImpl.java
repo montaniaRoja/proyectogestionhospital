@@ -2,28 +2,37 @@ package com.example.aplicattion.controller;
 
 import java.io.IOException;
 
+import com.example.application.data.PacientesResponse;
 import com.example.application.model.DatabaseRepositoryImpl;
 import com.example.application.views.PacientesView;
+import com.example.application.views.PacientesViewModel;
 
 public class PacientesInteractorImpl implements PacientesInteractor{
 	
 	
 	private DatabaseRepositoryImpl modelo;
-	private PacientesView vista;
+	private PacientesViewModel vista;
 	
 	
-	public PacientesInteractorImpl(PacientesView view) {
+	public PacientesInteractorImpl(PacientesViewModel view) {
 		
 		super();
 		this.vista=view;
 		this.modelo= DatabaseRepositoryImpl.getInstance("https://apex.oracle.com",30000L);
 		
 		
+		
 	}
 	
 	@Override
 	public void consultarPacientes() {
-		// TODO Auto-generated method stub
+		try {
+			this.modelo.consultarPacientes();
+			PacientesResponse respuesta=this.modelo.consultarPacientes();
+			this.vista.mostrarPacientesEnGrid(respuesta.getItems());
+		}catch(IOException e) {
+			
+		}
 		
 		
 	}

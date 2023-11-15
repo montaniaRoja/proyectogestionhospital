@@ -7,11 +7,12 @@ public class Paciente {
 	private String dni;
 	private String nombre;
 	private String apellido;
-	private String fechaNac;
+	private String fecha;
 	private String genero;
 	private String direccion;
 	private String telefono;
 	private String responsable;
+	
 	
 	
 	
@@ -52,6 +53,7 @@ public class Paciente {
 
 
 	public String getApellido() {
+		System.out.println(" apellidos " + apellido);
 		return apellido;
 	}
 
@@ -59,21 +61,26 @@ public class Paciente {
 
 
 	public void setApellido(String apellido) {
+		
 		this.apellido = apellido;
 	}
 
 
 
 
-	public String getFechaNac() {
-		return fechaNac;
+	public String getFecha() {
+		System.out.println(" la fecha establecoida es "+fecha);
+		return fecha;
+		
 	}
 
 
 
 
 	public void setFechaNac(String fechaNac) {
-		this.fechaNac = fechaNac;
+		this.fecha = fechaNac;
+		
+		
 	}
 
 
@@ -131,6 +138,11 @@ public class Paciente {
 	public void setResponsable(String responsable) {
 		this.responsable = responsable;
 	}
+
+
+
+
+	
 	
 	
 
