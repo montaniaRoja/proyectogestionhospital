@@ -1,5 +1,4 @@
-# Flow CRM Tutorial
-
+# Proyecto de gestion de hospital creado en base a la plantilla de FlowCrmTutorial de Vaadin
 This project can be used as a starting point to create your own Vaadin application with Spring Boot.
 It contains all the necessary configuration and some placeholder files to get you started.
 
