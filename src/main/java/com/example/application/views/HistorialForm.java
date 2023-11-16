@@ -2,20 +2,22 @@ package com.example.application.views;
 
 
 import java.time.LocalDate;
-
 import com.example.application.data.Historial;
-import com.example.application.data.services.CrudPacientes;
 import com.vaadin.flow.component.Key;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.router.BeforeEvent;
+import com.vaadin.flow.router.HasUrlParameter;
 
-public class HistorialForm extends FormLayout { 
+public class HistorialForm extends FormLayout implements HasUrlParameter<String> { 
   private static final long serialVersionUID = 1L;
-  TextField dniPaciente = new TextField("DNI Paciente");
+  TextField dniPaciente;
   DatePicker dateDate = new DatePicker("Fecha Cita");
   TextField motivoDate = new TextField("Motivo Cita"); 
   TextField diagnos = new TextField("Diagnostico");
@@ -26,11 +28,14 @@ public class HistorialForm extends FormLayout {
   Button save = new Button("Save");
   
   Button close = new Button("Pacientes");
+  
+  BeanValidationBinder<Historial> binder = new BeanValidationBinder<>(Historial.class);
 
   public HistorialForm() {
-    addClassName("historial-form"); 
+	  dniPaciente=new TextField("DNI Paciente");
+	  addClassName("historial-form"); 
     
-    add(dniPaciente, dateDate,motivoDate,diagnos,dateNext,createButtonsLayout());
+	  add(dniPaciente, dateDate,motivoDate,diagnos,dateNext,createButtonsLayout());
     
     
   }
@@ -41,6 +46,8 @@ public class HistorialForm extends FormLayout {
     close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
     
     save.addClickListener(e->crearHistorial());
+    
+    close.addClickListener(e-> UI.getCurrent().navigate("pacientes/"));
     
     save.addClickShortcut(Key.ENTER); 
     close.addClickShortcut(Key.ESCAPE);
@@ -59,9 +66,9 @@ private Object crearHistorial() {
 	historial.setProxima_cita(fechaSeleccionada.toString());
 	historial.setIdentidad(dniPaciente.getValue());
 	
+	HistorialView.nuevoHistorial(historial);
 	
-	CrudPacientes.guardarHistorial(historial);
-	// TODO Auto-generated method stub
+	
 	return null;
 }
 
@@ -70,6 +77,14 @@ public void setHistorial(Object object) {
 	
 }
 
+
+
+@Override
+public void setParameter(BeforeEvent event, String parameter) {
+	System.out.println(parameter);
+	this.dniPaciente.setValue(parameter);
+	
+}
 
     
   

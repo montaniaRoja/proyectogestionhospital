@@ -42,7 +42,7 @@ public interface DatabaseRepository {
 	    "Accept: application/json",
 	    "User-Agent: Retrofit-Sample-App"
 	})
-	@POST("/pls/apex/adolfouth/hospital/pacientes")
-	Call<ResponseBody> crearHistorial(@Body Historial h);
+	@POST("/pls/apex/adolfouth/hospital/historial")
+	Call<ResponseBody> crearHistorial(@Body Historial historial);
 
 }

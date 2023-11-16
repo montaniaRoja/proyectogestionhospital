@@ -65,37 +65,9 @@ public class PacientForm extends FormLayout {
     close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
     appmnt.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
     
-    save.addClickListener(e -> {
-        try {
-            
-           
-
-            Paciente paciente=new Paciente();
-    		
-    		paciente.setDni(this.dNi.getValue());
-    		paciente.setNombre(this.firstName.getValue());
-    		paciente.setApellido(this.lastName.getValue());
-    		paciente.setFechaNac(this.datePicker.getValue().toString());
-    		paciente.setGenero(this.genero.getValue());
-    		paciente.setDireccion(this.direccion.getValue());
-    		paciente.setTelefono(this.telefono.getValue());
-    		paciente.setResponsable(this.responsable.getValue());
-
-            
-            PacientesView.nuevoPaciente(paciente);
-            
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
-        }
-    });
-
-    	
-    		
-    	    
-    
-    
-    
+    save.addClickListener(e -> pacienteCrear());
+       
+        
     close.addClickListener(e->limpiarFormulario());
     appmnt.addClickListener(e -> { 
     	
@@ -129,7 +101,7 @@ public class PacientForm extends FormLayout {
 	return null;
 }
 
-private void agregarHistorial() {
+  private void agregarHistorial() {
 	  String dni=dNi.getValue();
 	  UI.getCurrent().navigate("historial/"+dni);
 	}
@@ -137,12 +109,33 @@ private void agregarHistorial() {
 
 
 
-public void setPaciente(Paciente paciente) {
+  public void setPaciente(Paciente paciente) {
 	binder.setBean(paciente);
 	// TODO Auto-generated method stub
 	
 }
 
-  
+  public void pacienteCrear() {
+	  try {
+          
+          Paciente paciente=new Paciente();
+   		
+   		paciente.setDni(this.dNi.getValue());
+   		paciente.setNombre(this.firstName.getValue());
+   		paciente.setApellido(this.lastName.getValue());
+   		paciente.setFechaNac(this.datePicker.getValue().toString());
+   		paciente.setGenero(this.genero.getValue());
+   		paciente.setDireccion(this.direccion.getValue());
+   		paciente.setTelefono(this.telefono.getValue());
+   		paciente.setResponsable(this.responsable.getValue());
+
+           
+           PacientesView.nuevoPaciente(paciente);
+           
+       } catch (Exception ex) {
+           ex.printStackTrace();
+           Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+       }
+  }
   
 }

@@ -184,7 +184,7 @@ public class HistorialView  extends VerticalLayout implements HasUrlParameter<St
 	            
 	            ex.printStackTrace(); 
 	            
-	            Notification.show("Error al guardar el paciente: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
+	            Notification.show("Error al guardar el historial: " + ex.getMessage(), 3000, Notification.Position.TOP_CENTER);
 	        }
 		
 		
